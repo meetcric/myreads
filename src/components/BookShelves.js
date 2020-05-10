@@ -1,33 +1,38 @@
-import React from "react";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+// import BrandBar from "./BrandBar";
 import BookDisplay from "./BookDisplay";
 
-class BookShelves extends React.Component {
+class BookShelves extends Component {
   render() {
-    const { books } = this.props;
+    const { onShelfChange, books } = this.props;
+
     return (
-      <div>
-        <div className="list-books">
-          <div className="list-books-content">
-            <BookSection
-              books={books.filter((e) => e.shelf === "currentlyReading")}
-              shelfName="Currently Reading"
-            />
-            <BookSection
-              books={books.filter((e) => e.shelf === "wantToRead")}
-              shelfName="Want to Read"
-            />
-            <BookSection
-              books={books.filter((e) => e.shelf === "read")}
-              shelfName="Read"
-            />
-          </div>
+      <div className="list-books">
+        {/* <BrandBar /> */}
+        <div className="list-books-content">
+          <BookSection
+            onShelfChange={onShelfChange}
+            books={books.filter((b) => b.shelf === "currentlyReading")}
+            shelfName="Currently Reading"
+          />
+          <BookSection
+            onShelfChange={onShelfChange}
+            books={books.filter((b) => b.shelf === "wantToRead")}
+            shelfName="Want to Read"
+          />
+          <BookSection
+            onShelfChange={onShelfChange}
+            books={books.filter((b) => b.shelf === "read")}
+            shelfName="Read"
+          />
         </div>
       </div>
     );
   }
 }
 
-const BookSection = ({ books, shelfName }) => (
+const BookSection = ({ onShelfChange, books, shelfName }) => (
   <div className="bookshelf">
     <h2 className="bookshelf-title">
       {shelfName}-
@@ -40,12 +45,16 @@ const BookSection = ({ books, shelfName }) => (
       </span>
     </h2>
     {books.length === 0 ? (
-      <div className="no-results">Nothing to Show</div>
+      <div className="no-results">Nothing to show</div>
     ) : (
       <div className="bookshelf-books">
         <ol className="books-grid">
           {books.map((book) => (
-            <BookDisplay id={book.id} book={book} />
+            <BookDisplay
+              key={book.id}
+              book={book}
+              onShelfChange={onShelfChange}
+            />
           ))}
         </ol>
       </div>
