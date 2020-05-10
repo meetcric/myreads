@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-// import BrandBar from "./BrandBar";
 import BookDisplay from "./BookDisplay";
+import Header from "./Header";
 
 class BookShelves extends Component {
   render() {
@@ -9,7 +9,7 @@ class BookShelves extends Component {
 
     return (
       <div className="list-books">
-        {/* <BrandBar /> */}
+        <Header />
         <div className="list-books-content">
           <BookSection
             onShelfChange={onShelfChange}
@@ -26,6 +26,11 @@ class BookShelves extends Component {
             books={books.filter((b) => b.shelf === "read")}
             shelfName="Read"
           />
+          <Link to="/search">
+            <div className="open-search">
+              <p>Add some Books</p>
+            </div>
+          </Link>
         </div>
       </div>
     );

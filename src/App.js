@@ -3,6 +3,7 @@ import * as BooksAPI from "./BooksAPI";
 import { Route } from "react-router-dom";
 import "./App.css";
 import BookShelves from "./components/BookShelves";
+import SearchBook from "./components/SearchBook";
 
 class BooksApp extends React.Component {
   state = {
@@ -47,6 +48,15 @@ class BooksApp extends React.Component {
             <BookShelves
               onShelfChange={this.shelfChangeHandler}
               books={this.state.books}
+            />
+          )}
+        />
+        <Route
+          path="/search"
+          render={({ history }) => (
+            <SearchBook
+              onShelfChange={this.shelfChangeHandler}
+              mybooksList={this.state.books}
             />
           )}
         />
